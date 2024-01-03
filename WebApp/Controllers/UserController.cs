@@ -36,7 +36,7 @@ namespace WebApp.Controllers
         }
 
         //[HttpPost("SignIn")]
-        //public async ActionResult SignInAsync(SignIn data)
+        //public async IActionResult SignInAsync(SignIn data)
         //{
         //    var user = await _userService.GetByEmailAsync(data.Email);
         //    if (user == null)
@@ -53,7 +53,7 @@ namespace WebApp.Controllers
         //}
 
         //[HttpPost("Create")]
-        //public async ActionResult CreateAsync(User user)
+        //public async IActionResult CreateAsync(User user)
         //{
         //    var existingUser = await _userService.GetByEmailAsync(user.Email);
         //    if (existingUser != null)

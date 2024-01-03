@@ -1,15 +1,19 @@
+using Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.Extensions;
 
 public static class DatabaseServiceExtensions
 {
-    public static IServiceCollection AddMysqlDatabase<TContext>(this IServiceCollection services)
+    public static IServiceCollection AddSqlServerDatabase<TContext>(this IServiceCollection services)
         where TContext : DbContext
     {
-        //services.AddDbContext<ApplicationDbContext>(options =>
-        //    options.UseSqlServer(GetDbConnectionFromEnv()));
-        //services.AddDatabaseDeveloperPageExceptionFilter();
+        var provider = services.BuildServiceProvider();
+        var configuration = provider.GetRequiredService<IConfiguration>();
+
+        var connectionString = configuration.GetDbConnectionFromEnv();
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(connectionString));
 
         return services;
     }

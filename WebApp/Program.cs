@@ -1,3 +1,4 @@
+using Domain;
 using Newtonsoft.Json;
 using WebApp.Extensions;
 
@@ -17,6 +18,8 @@ public class Program
         });
 
         builder.Services.AddEndpointsApiExplorer();
+
+        builder.Services.AddSqlServerDatabase<AppDbContext>();
 
         builder.Services.AddSwagger();
 
