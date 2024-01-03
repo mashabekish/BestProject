@@ -1,6 +1,6 @@
 ﻿namespace WebApp.Models
 {
-    public class SignIn
+    public class SignInDto
     {
         public string Email { get; set; } = null!;
 

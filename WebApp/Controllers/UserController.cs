@@ -36,17 +36,17 @@ namespace WebApp.Controllers
         }
 
         //[HttpPost("SignIn")]
-        //public async IActionResult SignInAsync(SignIn data)
+        //public async IActionResult SignInAsync(SignInDto data)
         //{
-        //    var user = await _userService.GetByEmailAsync(data.Email);
+        //    var user = _userService.FindUserByEmail(data.Email);
         //    if (user == null)
         //        return BadRequest("User with this login does not exist");
 
         //    if (BCrypt.Net.BCrypt.Verify(data.Password, user.Password))
         //    {
         //        var token = GetToken(user.Id);
-        //        user.Payload = new(token);
-        //        return user;
+        //        var userDto = new UserDto(user, token);
+        //        return userDto;
         //    }
         //    else
         //        return BadRequest("Invalid password");
@@ -55,15 +55,16 @@ namespace WebApp.Controllers
         //[HttpPost("Create")]
         //public async IActionResult CreateAsync(User user)
         //{
-        //    var existingUser = await _userService.GetByEmailAsync(user.Email);
+        //    var existingUser = _userService.FindUserByEmail(user.Email);
         //    if (existingUser != null)
         //        return BadRequest("User with this login already exists");
 
         //    user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-        //    user = await _userService.CreateAsync(user);
+        //    user = _userService.CreateUser(user);
+
         //    var token = GetToken(user.Id);
-        //    user.Payload = new(token);
-        //    return user;
+        //    var userDto = new UserDto(user, token);
+        //    return userDto;
         //}
     }
 }
