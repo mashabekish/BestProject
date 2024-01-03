@@ -1,6 +1,7 @@
 using BusinessLayer.Abstractions;
 using BusinessLayer.Services;
 using Domain;
+using Domain.DataSeeder;
 using Domain.Repositories;
 using Newtonsoft.Json;
 using WebApp.Extensions;
@@ -26,6 +27,7 @@ public class Program
 
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IDbSeeder, DbSeeder>();
 
         builder.Services.AddSwagger();
 
@@ -33,6 +35,8 @@ public class Program
 
         app.UseAuthentication();
         app.UseAuthorization();
+
+        SeedDatabase();
 
         if (app.Environment.IsDevelopment())
         {
@@ -45,5 +49,14 @@ public class Program
         app.MapControllers();
 
         app.Run();
+
+        async void SeedDatabase()
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbSeeder = scope.ServiceProvider.GetRequiredService<IDbSeeder>();
+               await dbSeeder.SeedData();
+            }
+        }
     }
 }
