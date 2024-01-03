@@ -16,16 +16,18 @@ namespace Domain.Repositories
             _db = db;
         }
 
-        public User CreateUser(User newUser)
+        public async Task<User> CreateUserAsync(User newUser)
         {
             _db.Users.Add(newUser);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
             return newUser;
         }
 
-        public User? FindUserByEmail(string email)
+
+        public Task<User?> FindUserByEmail(string email)
         {
-            return _db.Users.FirstOrDefault(u => u.Email.Equals(email));
+            return Task.FromResult(_db.Users.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase)));
         }
+
     }
 }
