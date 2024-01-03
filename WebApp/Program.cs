@@ -1,4 +1,7 @@
+using BusinessLayer.Abstractions;
+using BusinessLayer.Services;
 using Domain;
+using Domain.Repositories;
 using Newtonsoft.Json;
 using WebApp.Extensions;
 
@@ -20,6 +23,9 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
 
         builder.Services.AddSqlServerDatabase<AppDbContext>();
+
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IUserService, UserService>();
 
         builder.Services.AddSwagger();
 

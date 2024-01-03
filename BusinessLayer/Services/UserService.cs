@@ -13,14 +13,14 @@ namespace BusinessLayer.Services
             _userRepository = userRepository;
         }
 
-        public User CreateUser(User newUser)
+        public async Task<User> CreateUserAsync(User newUser)
         {
-            return _userRepository.CreateUser(newUser);
+            return await _userRepository.CreateUserAsync(newUser);
         }
 
-        public User? FindUserByEmail(string email)
+        public async Task<User?> FindUserByEmailAsync(string email)
         {
-            return _userRepository.FindUserByEmail(email);
+            return await _userRepository.FindUserByEmailAsync(email);
         }
     }
 }
