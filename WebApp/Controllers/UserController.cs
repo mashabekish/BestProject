@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Abstractions;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -36,6 +37,14 @@ namespace WebApp.Controllers
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
 
+        [Authorize]
+        [HttpGet("AuthorizeTest")]
+        public IActionResult AuthorizeTest()
+        {
+            return Ok();
+        }
+
+        [AllowAnonymous]
         [HttpPost("SignIn")]
         public async Task<IActionResult> SignInAsync(SignInDto data)
         {
@@ -53,6 +62,7 @@ namespace WebApp.Controllers
                 return BadRequest("Invalid password");
         }
 
+        [AllowAnonymous]
         [HttpPost("Create")]
         public async Task<IActionResult> CreateAsync(User user)
         {

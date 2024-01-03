@@ -32,6 +32,7 @@ public class Program
         var app = builder.Build();
 
         app.UseAuthentication();
+        app.UseAuthorization();
 
         if (app.Environment.IsDevelopment())
         {
