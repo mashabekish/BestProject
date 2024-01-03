@@ -1,27 +1,39 @@
-namespace WebApp
+using Newtonsoft.Json;
+using WebApp.Extensions;
+
+namespace WebApp;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddJwtAuthentication();
+
+        builder.Services.AddControllers().AddNewtonsoftJson(options =>
         {
-            var builder = WebApplication.CreateBuilder(args);
+            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        });
 
-            // Add services to the container.
+        builder.Services.AddEndpointsApiExplorer();
 
-            builder.Services.AddControllers();
+        builder.Services.AddSwagger();
 
-            var app = builder.Build();
+        var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+        app.UseAuthentication();
 
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-
-            app.MapControllers();
-
-            app.Run();
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
+
+        app.UseHttpsRedirection();
+
+        app.MapControllers();
+
+        app.Run();
     }
 }
