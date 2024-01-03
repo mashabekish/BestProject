@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace Domain.Repositories
 
         public Task<User?> FindUserByEmailAsync(string email)
         {
-            return Task.FromResult(_db.Users.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase)));
+            return _db.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
         }
 
     }
