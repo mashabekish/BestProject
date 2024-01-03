@@ -4,8 +4,8 @@ namespace BusinessLayer.Abstractions
 {
     public interface IUserService
     {
-        User CreateUser(User newUser);
+        Task<User> CreateUserAsync(User newUser);
 
-        User? FindUserByEmail(string email);
+        Task<User?> FindUserByEmailAsync(string email);
     }
 }
