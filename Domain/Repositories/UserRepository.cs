@@ -24,7 +24,7 @@ namespace Domain.Repositories
         }
 
 
-        public Task<User?> FindUserByEmail(string email)
+        public Task<User?> FindUserByEmailAsync(string email)
         {
             return Task.FromResult(_db.Users.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase)));
         }

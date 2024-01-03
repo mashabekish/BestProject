@@ -9,7 +9,7 @@ namespace Domain.Repositories
 {
     internal interface IUserRepository
     {
-        public User? FindUserByEmail(string email);
-        public User CreateUser(User newUser);
+        public Task<User?> FindUserByEmailAsync(string email);
+        public Task<User> CreateUserAsync(User newUser);
     }
 }
