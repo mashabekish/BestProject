@@ -1,4 +1,6 @@
 ﻿using BusinessLayer.Abstractions;
+using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -35,35 +37,45 @@ namespace WebApp.Controllers
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
 
-        //[HttpPost("SignIn")]
-        //public async IActionResult SignInAsync(SignIn data)
-        //{
-        //    var user = await _userService.GetByEmailAsync(data.Email);
-        //    if (user == null)
-        //        return BadRequest("User with this login does not exist");
+        [Authorize]
+        [HttpGet("AuthorizeTest")]
+        public IActionResult AuthorizeTest()
+        {
+            return Ok();
+        }
 
-        //    if (BCrypt.Net.BCrypt.Verify(data.Password, user.Password))
-        //    {
-        //        var token = GetToken(user.Id);
-        //        user.Payload = new(token);
-        //        return user;
-        //    }
-        //    else
-        //        return BadRequest("Invalid password");
-        //}
+        [AllowAnonymous]
+        [HttpPost("SignIn")]
+        public async Task<IActionResult> SignInAsync(SignInDto data)
+        {
+            var user = await _userService.FindUserByEmailAsync(data.Email);
+            if (user == null)
+                return BadRequest("User with this login does not exist");
 
-        //[HttpPost("Create")]
-        //public async IActionResult CreateAsync(User user)
-        //{
-        //    var existingUser = await _userService.GetByEmailAsync(user.Email);
-        //    if (existingUser != null)
-        //        return BadRequest("User with this login already exists");
+            if (BCrypt.Net.BCrypt.Verify(data.Password, user.Password))
+            {
+                var token = GetToken(user.Id);
+                var userDto = new UserDto(user, token);
+                return Ok(userDto);
+            }
+            else
+                return BadRequest("Invalid password");
+        }
 
-        //    user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-        //    user = await _userService.CreateAsync(user);
-        //    var token = GetToken(user.Id);
-        //    user.Payload = new(token);
-        //    return user;
-        //}
+        [AllowAnonymous]
+        [HttpPost("Create")]
+        public async Task<IActionResult> CreateAsync(User user)
+        {
+            var existingUser = await _userService.FindUserByEmailAsync(user.Email);
+            if (existingUser != null)
+                return BadRequest("User with this login already exists");
+
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            user = await _userService.CreateUserAsync(user);
+
+            var token = GetToken(user.Id);
+            var userDto = new UserDto(user, token);
+            return Ok(userDto);
+        }
     }
 }

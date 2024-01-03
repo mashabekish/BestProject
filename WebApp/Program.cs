@@ -1,5 +1,8 @@
+using BusinessLayer.Abstractions;
+using BusinessLayer.Services;
 using Domain;
 using Domain.DataSeeder;
+using Domain.Repositories;
 using Newtonsoft.Json;
 using WebApp.Extensions;
 
@@ -22,14 +25,16 @@ public class Program
 
         builder.Services.AddSqlServerDatabase<AppDbContext>();
 
-        builder.Services
-            .AddScoped<IDbSeeder, DbSeeder>();
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IDbSeeder, DbSeeder>();
 
         builder.Services.AddSwagger();
 
         var app = builder.Build();
 
         app.UseAuthentication();
+        app.UseAuthorization();
 
         SeedDatabase();
 
