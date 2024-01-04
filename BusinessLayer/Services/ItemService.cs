@@ -55,6 +55,11 @@ public class ItemService : IItemService
         return await _itemRepository.CreateItemAsync(newLostItem);
     }
 
+    public async Task<Item?> EditItemAsync(Item editItem)
+    {
+        return await _itemRepository.EditItemAsync(editItem);
+    }
+
     public async Task<IEnumerable<Item>> GetResolvedItemsAsync()
     {
         return await _itemRepository.GetResolvedItemsAsync();

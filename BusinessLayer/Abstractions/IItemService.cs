@@ -12,5 +12,6 @@ public interface IItemService
     Task<IEnumerable<Item>> GetLostItemsAsync(int userId);
     Task<Item> CreateFoundItemAsync(Item newFoundItem);
     Task<Item> CreateLostItemAsync(Item newLostItem);
+    Task<Item?> EditItemAsync(Item editItem);
     Task<IEnumerable<Item>> GetResolvedItemsAsync();
 }
