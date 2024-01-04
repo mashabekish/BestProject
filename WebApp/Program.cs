@@ -1,6 +1,7 @@
 using BusinessLayer.Abstractions;
 using BusinessLayer.Services;
 using Domain;
+using Domain.Abstractions;
 using Domain.DataSeeder;
 using Domain.Repositories;
 using Newtonsoft.Json;
@@ -27,8 +28,10 @@ public class Program
 
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+        builder.Services.AddScoped<IItemRepository, ItemRepository>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<ICategoryService, CategoryService>();
+        builder.Services.AddScoped<IItemService, ItemService>();
         builder.Services.AddScoped<IDbSeeder, DbSeeder>();
 
         builder.Services.AddSwagger();

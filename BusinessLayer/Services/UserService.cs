@@ -1,6 +1,6 @@
 using BusinessLayer.Abstractions;
+using Domain.Abstractions;
 using Domain.Models;
-using Domain.Repositories;
 
 namespace BusinessLayer.Services
 {
