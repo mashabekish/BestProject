@@ -1,16 +1,14 @@
 ﻿using Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace BusinessLayer.DTOs
 {
     public class ItemDto
     {
         public int Id { get; set; }
+        [MaxLength(255)]
         public string Name { get; set; }
+        [MaxLength(500)]
         public string Description { get; set; }
         public int CategoryId { get; set; }
         public int UserId { get; set; }

@@ -89,10 +89,10 @@ namespace WebApp.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPut("Edit/{userId:int}")]
-        public async Task<IActionResult> EditAsync(int userId, Item editItem)
+        [HttpPut("Edit/{itemId:int}")]
+        public async Task<IActionResult> EditAsync(int itemId, Item editItem)
         {
-            if (userId != editItem.Id) throw new InvalidItemException();
+            if (itemId != editItem.Id) throw new InvalidItemException();
 
             var response = await _itemService.EditItemAsync(editItem);
             return Ok(MapItem(response));

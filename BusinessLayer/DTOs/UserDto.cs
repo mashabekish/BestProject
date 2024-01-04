@@ -1,6 +1,6 @@
 ﻿using Domain.Models;
 
-namespace WebApp.Models
+namespace BusinessLayer.DTOs
 {
     public class UserDto
     {
