@@ -11,5 +11,6 @@ public interface IItemRepository
     Task<IEnumerable<Item>> GetLostItemsAsync(string category);
     Task<IEnumerable<Item>> GetLostItemsAsync(int userId);
     Task<Item> CreateItemAsync(Item newItem);
+    Task<Item?> EditItemAsync(Item newItem);
     Task<IEnumerable<Item>> GetResolvedItemsAsync();
 }

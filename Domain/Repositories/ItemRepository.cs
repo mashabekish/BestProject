@@ -66,6 +66,22 @@ public class ItemRepository : IItemRepository
         return newItem;
     }
 
+    public async Task<Item?> EditItemAsync(Item editItem)
+    {
+        var dbItem = await _db.Items.FirstOrDefaultAsync(i => i.Id == editItem.Id);
+
+        if (dbItem == null) return null;
+
+        dbItem.Name = editItem.Name;
+        dbItem.Description = editItem.Description;
+        dbItem.CategoryId = editItem.CategoryId;
+        dbItem.Flag = editItem.Flag;
+        dbItem.IsResolved = editItem.IsResolved;
+
+        await _db.SaveChangesAsync();
+        return dbItem;
+    }
+
     public async Task<IEnumerable<Item>> GetResolvedItemsAsync()
     {
         return await _db.Items.Where(i => i.IsResolved).ToListAsync();

@@ -81,6 +81,16 @@ namespace WebApp.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPut("Edit/{userId:int}")]
+        public async Task<IActionResult> EditAsync(int userId, Item editItem)
+        {
+            if (userId != editItem.Id) return BadRequest();
+
+            var response = await _itemService.EditItemAsync(editItem);
+            return Ok(response);
+        }
+
+        [AllowAnonymous]
         [HttpGet("GetResolved")]
         public async Task<IActionResult> GetResolvedItemsAsync()
         {
