@@ -1,7 +1,14 @@
-﻿namespace BusinessLayer.Abstractions
-{
-    public interface IItemService
-    {
+﻿using Domain.Models;
 
-    }
+namespace BusinessLayer.Abstractions;
+
+public interface IItemService
+{
+    Task<IEnumerable<Item>> GetFoundItemsAsync();
+    Task<IEnumerable<Item>> GetFoundItemsAsync(string category);
+    Task<IEnumerable<Item>> GetLostItemsAsync();
+    Task<IEnumerable<Item>> GetLostItemsAsync(string category);
+    Task<Item> CreateFoundItemAsync(Item newFoundItem);
+    Task<Item> CreateLostItemAsync(Item newLostItem);
+    Task<IEnumerable<Item>> GetResolvedItemsAsync();
 }
