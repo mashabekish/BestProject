@@ -1,4 +1,5 @@
 using BusinessLayer.Abstractions;
+using BusinessLayer.Utils;
 using Domain.Abstractions;
 using Domain.Models;
 
@@ -63,5 +64,11 @@ public class ItemService : IItemService
     public async Task<IEnumerable<Item>> GetResolvedItemsAsync()
     {
         return await _itemRepository.GetResolvedItemsAsync();
+    }
+
+    public async Task<IEnumerable<Item>> GetLostItemsByLocation(Location location)
+    {
+        var allLostItems = await _itemRepository.GetLostItemsAsync();
+        return allLostItems.Where(item => ItemLocationHelpers.LocationIntersects(location, item.Location)).ToList();
     }
 }
