@@ -122,5 +122,14 @@ namespace WebApp.Controllers
             return Ok(MapItems(response));
         }
 
+        [HttpGet("{itemId:int}")]
+        public async Task<IActionResult> GetItemById(int itemId)
+        {
+            var item = await _itemService.GetItemById(itemId);
+            if (item == null)
+                return NotFound("Item with such id is not found");
+            return Ok(_mapper.Map<ItemDto>(item));
+        }
+
     }
 }

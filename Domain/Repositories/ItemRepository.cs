@@ -86,4 +86,9 @@ public class ItemRepository : IItemRepository
     {
         return await _db.Items.Where(i => i.IsResolved).ToListAsync();
     }
+
+    public async Task<Item?> GetItemByIdAsync(int id)
+    {
+        return await _db.Items.FirstOrDefaultAsync(i => i.Id == id);
+    }
 }

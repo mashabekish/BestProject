@@ -13,4 +13,5 @@ public interface IItemRepository
     Task<Item> CreateItemAsync(Item newItem);
     Task<Item?> EditItemAsync(Item newItem);
     Task<IEnumerable<Item>> GetResolvedItemsAsync();
+    Task<Item?> GetItemByIdAsync(int id);
 }
