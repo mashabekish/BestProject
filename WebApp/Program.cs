@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using WebApp.Extensions;
 using AutoMapper;
 using BusinessLayer.Utils;
+using WebApp.Middleware;
 
 namespace WebApp;
 
@@ -53,6 +54,8 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+
+        app.UseMiddleware<GlobalErrorHandlerMiddleware>();
 
         app.MapControllers();
 
