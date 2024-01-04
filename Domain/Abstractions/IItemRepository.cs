@@ -1,8 +1,8 @@
 ﻿using Domain.Models;
 
-namespace BusinessLayer.Abstractions;
+namespace Domain.Abstractions;
 
-public interface IItemService
+public interface IItemRepository
 {
     Task<IEnumerable<Item>> GetFoundItemsAsync();
     Task<IEnumerable<Item>> GetFoundItemsAsync(string category);

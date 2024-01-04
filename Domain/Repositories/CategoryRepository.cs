@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Domain.Abstractions;
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Repositories;
