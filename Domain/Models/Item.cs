@@ -7,6 +7,7 @@ namespace Domain.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public DateTime Created { get; set; } = DateTime.UtcNow;
         [MaxLength(255)]
         public string Name { get; set; }
         [MaxLength(500)]
@@ -20,6 +21,6 @@ namespace Domain.Models
         public Location Location { get; set; }
         public int? ImageId { get; set; }
         public Image? Image { get; set; }
-
+        public List<Notification>? Notifications { get; set; }
     }
 }

@@ -44,11 +44,25 @@ namespace Domain
                 .HasOne(i => i.Image)
                 .WithOne(img => img.Item)
                 .HasForeignKey<Item>(i => i.ImageId);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Notifications)
+                .WithOne(n => n.User)
+                .HasForeignKey(n => n.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Item>()
+                .HasMany(i => i.Notifications)
+                .WithOne(n => n.Item)
+                .HasForeignKey(n => n.ItemId)
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
     }
 }

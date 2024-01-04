@@ -6,6 +6,7 @@ namespace BusinessLayer.DTOs
     public class ItemDto
     {
         public int Id { get; set; }
+        public DateTime? Created { get; set; }
         [MaxLength(255)]
         public string Name { get; set; }
         [MaxLength(500)]
@@ -17,5 +18,7 @@ namespace BusinessLayer.DTOs
         public Location Location { get; set; }
         public int? ImageId { get; set; }
         public ImageDto? Image { get; set; }
+        public List<Notification>? Notifications { get; set; }
+
     }
 }

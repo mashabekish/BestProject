@@ -17,6 +17,7 @@ namespace Domain.Models
         public string Password { get; set; }
         [MaxLength(16)]
         public string? PhoneNumber { get; set; }
-        public IEnumerable<Item> Items { get; set; } = new List<Item>();
+        public IEnumerable<Item>? Items { get; set; }
+        public List<Notification>? Notifications { get; set; }
     }
 }
