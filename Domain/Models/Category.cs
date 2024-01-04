@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Domain.Models
 {
@@ -9,6 +10,7 @@ namespace Domain.Models
         public int Id { get; set; }
         [MaxLength(255)]
         public string Name { get; set; }
-        public IEnumerable<Item> Items { get; set; }
+        [JsonIgnore]
+        public IEnumerable<Item> Items { get; set; } = new List<Item>();
     }
 }

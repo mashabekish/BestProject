@@ -10,6 +10,7 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[Controller]")]
     public class UserController : ControllerBase
@@ -36,13 +37,6 @@ namespace WebApp.Controllers
                 expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)),
                 signingCredentials: new SigningCredentials(_jwtConfig.IssuerSigningKey, SecurityAlgorithms.HmacSha256));
             return new JwtSecurityTokenHandler().WriteToken(jwt);
-        }
-
-        [Authorize]
-        [HttpGet("AuthorizeTest")]
-        public IActionResult AuthorizeTest()
-        {
-            return Ok();
         }
 
         [AllowAnonymous]

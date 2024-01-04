@@ -1,13 +1,11 @@
 using BusinessLayer.Abstractions;
 using BusinessLayer.Services;
+using BusinessLayer.Utils;
 using Domain;
 using Domain.Abstractions;
 using Domain.DataSeeder;
 using Domain.Repositories;
-using Newtonsoft.Json;
 using WebApp.Extensions;
-using AutoMapper;
-using BusinessLayer.Utils;
 using WebApp.Middleware;
 
 namespace WebApp;
@@ -20,10 +18,7 @@ public class Program
 
         builder.Services.AddJwtAuthentication();
 
-        builder.Services.AddControllers().AddNewtonsoftJson(options =>
-        {
-            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-        });
+        builder.Services.AddControllers();
 
         builder.Services.AddEndpointsApiExplorer();
 
@@ -66,7 +61,7 @@ public class Program
             using (var scope = app.Services.CreateScope())
             {
                 var dbSeeder = scope.ServiceProvider.GetRequiredService<IDbSeeder>();
-               await dbSeeder.SeedData();
+                await dbSeeder.SeedData();
             }
         }
     }

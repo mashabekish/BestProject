@@ -8,6 +8,7 @@ using WebApp.Exceptions;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[Controller]")]
     public class ItemController : ControllerBase
@@ -40,7 +41,6 @@ namespace WebApp.Controllers
             return Ok(MapItems(response));
         }
 
-        [AllowAnonymous]
         [HttpGet("GetFoundByUser/{userId:int}")]
         public async Task<IActionResult> GetFoundItemsByUserAsync(int userId)
         {
@@ -64,7 +64,6 @@ namespace WebApp.Controllers
             return Ok(MapItems(response));
         }
 
-        [AllowAnonymous]
         [HttpGet("GetLostByUser/{userId:int}")]
         public async Task<IActionResult> GetLostItemsByUserAsync(int userId)
         {
@@ -72,7 +71,6 @@ namespace WebApp.Controllers
             return Ok(MapItems(response));
         }
 
-        [AllowAnonymous]
         [HttpPost("CreateFound")]
         public async Task<IActionResult> CreateFoundAsync(Item foundItem)
         {
@@ -80,7 +78,6 @@ namespace WebApp.Controllers
             return Ok(MapItem(response));
         }
 
-        [AllowAnonymous]
         [HttpPost("CreateLost")]
         public async Task<IActionResult> CreateLostAsync(Item lostItem)
         {
@@ -88,7 +85,6 @@ namespace WebApp.Controllers
             return Ok(MapItem(response));
         }
 
-        [AllowAnonymous]
         [HttpPut("Edit/{itemId:int}")]
         public async Task<IActionResult> EditAsync(int itemId, Item editItem)
         {
@@ -98,7 +94,6 @@ namespace WebApp.Controllers
             return Ok(MapItem(response));
         }
 
-        [AllowAnonymous]
         [HttpGet("GetResolved")]
         public async Task<IActionResult> GetResolvedItemsAsync()
         {
@@ -106,7 +101,6 @@ namespace WebApp.Controllers
             return Ok(MapItems(response));
         }
 
-        [Authorize]
         [HttpPut("Locaton/GetLostItems")]
         public async Task<IActionResult> GetLostItemsByLocation(Location location)
         {
@@ -114,7 +108,6 @@ namespace WebApp.Controllers
             return Ok(MapItems(response));
         }
 
-        [Authorize]
         [HttpPut("Locaton/GetFoundItems")]
         public async Task<IActionResult> GetFoundItemsByLocation(Location location)
         {
@@ -122,6 +115,7 @@ namespace WebApp.Controllers
             return Ok(MapItems(response));
         }
 
+        [AllowAnonymous]
         [HttpGet("{itemId:int}")]
         public async Task<IActionResult> GetItemById(int itemId)
         {
@@ -130,6 +124,5 @@ namespace WebApp.Controllers
                 return NotFound("Item with such id is not found");
             return Ok(_mapper.Map<ItemDto>(item));
         }
-
     }
 }
