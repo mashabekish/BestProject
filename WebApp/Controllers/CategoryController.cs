@@ -1,23 +1,24 @@
 ﻿using BusinessLayer.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApp.Controllers;
-
-[ApiController]
-[Route("[Controller]")]
-public class CategoryController : ControllerBase
+namespace WebApp.Controllers
 {
-    private readonly ICategoryService _categoryService;
-
-    public CategoryController(ICategoryService categoryService)
+    [ApiController]
+    [Route("[Controller]")]
+    public class CategoryController : ControllerBase
     {
-        _categoryService = categoryService;
-    }
+        private readonly ICategoryService _categoryService;
 
-    [HttpGet("Get")]
-    public async Task<IActionResult> GetCategoriesAsync()
-    {
-        var response = await _categoryService.GetCategoriesAsync();
-        return Ok(response);
+        public CategoryController(ICategoryService categoryService)
+        {
+            _categoryService = categoryService;
+        }
+
+        [HttpGet("Get")]
+        public async Task<IActionResult> GetCategoriesAsync()
+        {
+            var response = await _categoryService.GetCategoriesAsync();
+            return Ok(response);
+        }
     }
 }

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Models
 {
@@ -12,11 +7,16 @@ namespace Domain.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [MaxLength(255)]
         public string Name { get; set; }
         [EmailAddress]
+        [MaxLength(255)]
         public string Email { get; set; }
+        [MinLength(8)]
+        [MaxLength(255)]
         public string Password { get; set; }
+        [MaxLength(16)]
         public string? PhoneNumber { get; set; }
-        public IEnumerable<Item>? Items { get; set; }
+        public IEnumerable<Item> Items { get; set; } = new List<Item>();
     }
 }
