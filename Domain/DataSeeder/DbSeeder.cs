@@ -26,8 +26,8 @@ namespace Domain.DataSeeder
                 return;
 
             _db.Users.AddRange(
-                new User { Name = "John Doe", Email = "john.doe@example.com", PhoneNumber = "+123456789", Password = "dkmfdk3400011!!@" },
-                new User { Name = "Jane Braun", Email = "jane.braun@example.com", PhoneNumber = "+987654321", Password = "drfvm999fd1@#" }
+                new User { Name = "John Doe", Email = "john.doe@example.com", PhoneNumber = "+123456789", Password = "$2a$11$2.AEN1C9c/DA94ko524fAOoGdtGsD3oDcbFa1EfgvJieZPE5kpwkK" }, //admin1234
+                new User { Name = "Jane Braun", Email = "jane.braun@example.com", PhoneNumber = "+987654321", Password = "$2a$11$2.AEN1C9c/DA94ko524fAOoGdtGsD3oDcbFa1EfgvJieZPE5kpwkK" } //admin1234
             );
             await _db.SaveChangesAsync();
         }
