@@ -1,4 +1,5 @@
 using BusinessLayer.Abstractions;
+using BusinessLayer.Utils;
 using Domain.Abstractions;
 using Domain.Models;
 
@@ -18,14 +19,14 @@ public class ItemService : IItemService
         return await _itemRepository.GetFoundItemsAsync();
     }
 
-    public async Task<IEnumerable<Item>> GetFoundItemsAsync(string category)
+    public async Task<IEnumerable<Item>> GetFoundItemsByCategoryAsync(int categoryId)
     {
-        return await _itemRepository.GetFoundItemsAsync(category);
+        return await _itemRepository.GetFoundItemsByCategoryAsync(categoryId);
     }
 
-    public async Task<IEnumerable<Item>> GetFoundItemsAsync(int userId)
+    public async Task<IEnumerable<Item>> GetFoundItemsByUserAsync(int userId)
     {
-        return await _itemRepository.GetFoundItemsAsync(userId);
+        return await _itemRepository.GetFoundItemsByUserAsync(userId);
     }
 
     public async Task<IEnumerable<Item>> GetLostItemsAsync()
@@ -33,14 +34,14 @@ public class ItemService : IItemService
         return await _itemRepository.GetLostItemsAsync();
     }
 
-    public async Task<IEnumerable<Item>> GetLostItemsAsync(string category)
+    public async Task<IEnumerable<Item>> GetLostItemsByCategoryAsync(int categoryId)
     {
-        return await _itemRepository.GetLostItemsAsync(category);
+        return await _itemRepository.GetLostItemsByCategoryAsync(categoryId);
     }
 
-    public async Task<IEnumerable<Item>> GetLostItemsAsync(int userId)
+    public async Task<IEnumerable<Item>> GetLostItemsByUserAsync(int userId)
     {
-        return await _itemRepository.GetLostItemsAsync(userId);
+        return await _itemRepository.GetLostItemsByUserAsync(userId);
     }
 
     public async Task<Item> CreateFoundItemAsync(Item newFoundItem)
@@ -63,5 +64,16 @@ public class ItemService : IItemService
     public async Task<IEnumerable<Item>> GetResolvedItemsAsync()
     {
         return await _itemRepository.GetResolvedItemsAsync();
+    }
+
+    public async Task<IEnumerable<Item>> GetLostItemsByLocation(Location location)
+    {
+        var allLostItems = await _itemRepository.GetLostItemsAsync();
+        return allLostItems.Where(item => ItemLocationHelpers.LocationIntersects(location, item.Location)).ToList();
+    }
+    public async Task<IEnumerable<Item>> GetFoundItemsByLocation(Location location)
+    {
+        var allLostItems = await _itemRepository.GetFoundItemsAsync();
+        return allLostItems.Where(item => ItemLocationHelpers.LocationIntersects(location, item.Location)).ToList();
     }
 }
