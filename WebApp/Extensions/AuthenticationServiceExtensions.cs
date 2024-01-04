@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using WebApp.Models;
+using WebApp.Services;
 
 namespace WebApp.Extensions;
 
@@ -8,23 +8,22 @@ public static class AuthenticationServiceExtensions
 {
     public static IServiceCollection AddJwtAuthentication(this IServiceCollection services)
     {
+        services.AddSingleton<JwtService>();
+
         var provider = services.BuildServiceProvider();
-        var configuration = provider.GetRequiredService<IConfiguration>();
+        var authentication = provider.GetRequiredService<JwtService>();
 
-        var jwtConfig = new JwtConfig(configuration);
-
-        services.AddSingleton(jwtConfig);
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = jwtConfig.ValidIssuer,
+                    ValidIssuer = authentication.ValidIssuer,
                     ValidateAudience = true,
-                    ValidAudience = jwtConfig.ValidAudience,
+                    ValidAudience = authentication.ValidAudience,
                     ValidateLifetime = true,
-                    IssuerSigningKey = jwtConfig.IssuerSigningKey,
+                    IssuerSigningKey = authentication.IssuerSigningKey,
                     ValidateIssuerSigningKey = true,
                 };
             });
