@@ -2,6 +2,7 @@
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Exceptions;
 
 namespace WebApp.Controllers
 {
@@ -84,7 +85,7 @@ namespace WebApp.Controllers
         [HttpPut("Edit/{userId:int}")]
         public async Task<IActionResult> EditAsync(int userId, Item editItem)
         {
-            if (userId != editItem.Id) return BadRequest();
+            if (userId != editItem.Id) throw new InvalidItemException();
 
             var response = await _itemService.EditItemAsync(editItem);
             return Ok(response);
