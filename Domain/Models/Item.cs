@@ -19,5 +19,10 @@ namespace Domain.Models
         public User User { get; set; }
         public Flags Flag { get; set; }
         public bool IsResolved { get; set; } = false;
+        public Location Location { get; set; }
+        public int? ImageId { get; set; }
+        public Image? Image { get; set; }
+
+
     }
 }
