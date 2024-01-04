@@ -20,15 +20,15 @@ public class ItemRepository : IItemRepository
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Item>> GetFoundItemsAsync(string category)
+    public async Task<IEnumerable<Item>> GetFoundItemsByCategoryAsync(int categoryId)
     {
         return await _db.Items
-            .Where(i => i.Flag == Flags.Found && i.Category.Name == category && !i.IsResolved)
+            .Where(i => i.Flag == Flags.Found && i.CategoryId == categoryId && !i.IsResolved)
             .Include(i => i.Category)
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Item>> GetFoundItemsAsync(int userId)
+    public async Task<IEnumerable<Item>> GetFoundItemsByUserAsync(int userId)
     {
         return await _db.Items
             .Where(i => i.Flag == Flags.Found && i.UserId == userId && !i.IsResolved)
@@ -43,15 +43,15 @@ public class ItemRepository : IItemRepository
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Item>> GetLostItemsAsync(string category)
+    public async Task<IEnumerable<Item>> GetLostItemsByCategoryAsync(int categoryId)
     {
         return await _db.Items
-            .Where(i => i.Flag == Flags.Lost && i.Category.Name == category && !i.IsResolved)
+            .Where(i => i.Flag == Flags.Lost && i.Category.Id == categoryId && !i.IsResolved)
             .Include(i => i.Category)
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Item>> GetLostItemsAsync(int userId)
+    public async Task<IEnumerable<Item>> GetLostItemsByUserAsync(int userId)
     {
         return await _db.Items
             .Where(i => i.Flag == Flags.Lost && i.UserId == userId && !i.IsResolved)

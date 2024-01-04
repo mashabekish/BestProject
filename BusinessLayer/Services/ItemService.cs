@@ -18,14 +18,14 @@ public class ItemService : IItemService
         return await _itemRepository.GetFoundItemsAsync();
     }
 
-    public async Task<IEnumerable<Item>> GetFoundItemsAsync(string category)
+    public async Task<IEnumerable<Item>> GetFoundItemsByCategoryAsync(int categoryId)
     {
-        return await _itemRepository.GetFoundItemsAsync(category);
+        return await _itemRepository.GetFoundItemsByCategoryAsync(categoryId);
     }
 
-    public async Task<IEnumerable<Item>> GetFoundItemsAsync(int userId)
+    public async Task<IEnumerable<Item>> GetFoundItemsByUserAsync(int userId)
     {
-        return await _itemRepository.GetFoundItemsAsync(userId);
+        return await _itemRepository.GetFoundItemsByUserAsync(userId);
     }
 
     public async Task<IEnumerable<Item>> GetLostItemsAsync()
@@ -33,14 +33,14 @@ public class ItemService : IItemService
         return await _itemRepository.GetLostItemsAsync();
     }
 
-    public async Task<IEnumerable<Item>> GetLostItemsAsync(string category)
+    public async Task<IEnumerable<Item>> GetLostItemsByCategoryAsync(int categoryId)
     {
-        return await _itemRepository.GetLostItemsAsync(category);
+        return await _itemRepository.GetLostItemsByCategoryAsync(categoryId);
     }
 
-    public async Task<IEnumerable<Item>> GetLostItemsAsync(int userId)
+    public async Task<IEnumerable<Item>> GetLostItemsByUserAsync(int userId)
     {
-        return await _itemRepository.GetLostItemsAsync(userId);
+        return await _itemRepository.GetLostItemsByUserAsync(userId);
     }
 
     public async Task<Item> CreateFoundItemAsync(Item newFoundItem)

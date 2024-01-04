@@ -26,18 +26,18 @@ namespace WebApp.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("GetFound/{category}")]
-        public async Task<IActionResult> GetFoundItemsAsync(string category)
+        [HttpGet("GetFoundByCategory/{categoryId:int}")]
+        public async Task<IActionResult> GetFoundItemsByCategoteryAsync(int categoryId)
         {
-            var response = await _itemService.GetFoundItemsAsync(category);
+            var response = await _itemService.GetFoundItemsByCategoryAsync(categoryId);
             return Ok(response);
         }
 
         [AllowAnonymous]
-        [HttpGet("GetFound/{userId:int}")]
-        public async Task<IActionResult> GetFoundItemsAsync(int userId)
+        [HttpGet("GetFoundByUser/{userId:int}")]
+        public async Task<IActionResult> GetFoundItemsByUserAsync(int userId)
         {
-            var response = await _itemService.GetFoundItemsAsync(userId);
+            var response = await _itemService.GetFoundItemsByUserAsync(userId);
             return Ok(response);
         }
 
@@ -50,18 +50,18 @@ namespace WebApp.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("GetLost/{category}")]
-        public async Task<IActionResult> GetLostItemsAsync(string category)
+        [HttpGet("GetLostByCategory/{categoryId:int}")]
+        public async Task<IActionResult> GetLostItemsAsync(int categoryId)
         {
-            var response = await _itemService.GetLostItemsAsync(category);
+            var response = await _itemService.GetLostItemsByCategoryAsync(categoryId);
             return Ok(response);
         }
 
         [AllowAnonymous]
-        [HttpGet("GetLost/{userId:int}")]
-        public async Task<IActionResult> GetLostItemsAsync(int userId)
+        [HttpGet("GetLostByUser/{userId:int}")]
+        public async Task<IActionResult> GetLostItemsByUserAsync(int userId)
         {
-            var response = await _itemService.GetLostItemsAsync(userId);
+            var response = await _itemService.GetLostItemsByUserAsync(userId);
             return Ok(response);
         }
 
