@@ -6,6 +6,7 @@ using Domain.DataSeeder;
 using Domain.Repositories;
 using Newtonsoft.Json;
 using WebApp.Extensions;
+using WebApp.Middleware;
 
 namespace WebApp;
 
@@ -50,6 +51,8 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+
+        app.UseMiddleware<GlobalErrorHandlerMiddleware>();
 
         app.MapControllers();
 
