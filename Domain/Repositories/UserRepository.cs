@@ -1,11 +1,6 @@
 ﻿using Domain.Abstractions;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Repositories
 {
@@ -28,8 +23,8 @@ namespace Domain.Repositories
 
         public Task<User?> FindUserByEmailAsync(string email)
         {
-            return _db.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
+            return _db.Users.AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Email.Equals(email));
         }
-
     }
 }

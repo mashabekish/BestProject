@@ -15,6 +15,6 @@ public class CategoryRepository : ICategoryRepository
 
     public async Task<IEnumerable<Category>> GetCategoriesAsync()
     {
-        return await _db.Categories.ToListAsync();
+        return await _db.Categories.AsNoTracking().ToListAsync();
     }
 }
