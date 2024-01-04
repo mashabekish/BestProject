@@ -1,5 +1,4 @@
 ﻿using BusinessLayer.Abstractions;
-using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers;
