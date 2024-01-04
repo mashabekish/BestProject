@@ -23,6 +23,11 @@ public class ItemService : IItemService
         return await _itemRepository.GetFoundItemsAsync(category);
     }
 
+    public async Task<IEnumerable<Item>> GetFoundItemsAsync(int userId)
+    {
+        return await _itemRepository.GetFoundItemsAsync(userId);
+    }
+
     public async Task<IEnumerable<Item>> GetLostItemsAsync()
     {
         return await _itemRepository.GetLostItemsAsync();
@@ -33,14 +38,21 @@ public class ItemService : IItemService
         return await _itemRepository.GetLostItemsAsync(category);
     }
 
+    public async Task<IEnumerable<Item>> GetLostItemsAsync(int userId)
+    {
+        return await _itemRepository.GetLostItemsAsync(userId);
+    }
+
     public async Task<Item> CreateFoundItemAsync(Item newFoundItem)
     {
-        return await _itemRepository.CreateFoundItemAsync(newFoundItem);
+        newFoundItem.Flag = Flags.Lost;
+        return await _itemRepository.CreateItemAsync(newFoundItem);
     }
 
     public async Task<Item> CreateLostItemAsync(Item newLostItem)
     {
-        return await _itemRepository.CreateLostItemAsync(newLostItem);
+        newLostItem.Flag = Flags.Lost;
+        return await _itemRepository.CreateItemAsync(newLostItem);
     }
 
     public async Task<IEnumerable<Item>> GetResolvedItemsAsync()

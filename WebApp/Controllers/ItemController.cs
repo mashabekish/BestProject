@@ -33,6 +33,14 @@ namespace WebApp.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet("GetFound/{userId:int}")]
+        public async Task<IActionResult> GetFoundItemsAsync(int userId)
+        {
+            var response = await _itemService.GetFoundItemsAsync(userId);
+            return Ok(response);
+        }
+
+        [AllowAnonymous]
         [HttpGet("GetLost")]
         public async Task<IActionResult> GetLostItemsAsync()
         {
@@ -45,6 +53,14 @@ namespace WebApp.Controllers
         public async Task<IActionResult> GetLostItemsAsync(string category)
         {
             var response = await _itemService.GetLostItemsAsync(category);
+            return Ok(response);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("GetLost/{userId:int}")]
+        public async Task<IActionResult> GetLostItemsAsync(int userId)
+        {
+            var response = await _itemService.GetLostItemsAsync(userId);
             return Ok(response);
         }
 
