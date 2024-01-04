@@ -71,4 +71,9 @@ public class ItemService : IItemService
         var allLostItems = await _itemRepository.GetLostItemsAsync();
         return allLostItems.Where(item => ItemLocationHelpers.LocationIntersects(location, item.Location)).ToList();
     }
+    public async Task<IEnumerable<Item>> GetFoundItemsByLocation(Location location)
+    {
+        var allLostItems = await _itemRepository.GetFoundItemsAsync();
+        return allLostItems.Where(item => ItemLocationHelpers.LocationIntersects(location, item.Location)).ToList();
+    }
 }

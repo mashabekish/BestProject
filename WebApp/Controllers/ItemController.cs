@@ -105,11 +105,20 @@ namespace WebApp.Controllers
             var response = await _itemService.GetResolvedItemsAsync();
             return Ok(MapItems(response));
         }
-        [AllowAnonymous]
-        [HttpPut("GetItemsInLocation")]
-        public async Task<IActionResult> GetItemsAtLocation(Location location)
+
+        [Authorize]
+        [HttpPut("Locaton/GetLostItems")]
+        public async Task<IActionResult> GetLostItemsByLocation(Location location)
         {
             var response = await _itemService.GetLostItemsByLocation(location);
+            return Ok(MapItems(response));
+        }
+
+        [Authorize]
+        [HttpPut("Locaton/GetFoundItems")]
+        public async Task<IActionResult> GetFoundItemsByLocation(Location location)
+        {
+            var response = await _itemService.GetFoundItemsByLocation(location);
             return Ok(MapItems(response));
         }
 
