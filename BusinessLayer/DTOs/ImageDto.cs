@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.DTOs
 {
-    public record ImageDto
+    public class ImageDto
     {
         // ImageDto contains image representation as Base64 string.
         // Will be converted to byte array for Item model.

@@ -6,6 +6,8 @@ using Domain.DataSeeder;
 using Domain.Repositories;
 using Newtonsoft.Json;
 using WebApp.Extensions;
+using AutoMapper;
+using BusinessLayer.Utils;
 
 namespace WebApp;
 
@@ -33,6 +35,7 @@ public class Program
         builder.Services.AddScoped<ICategoryService, CategoryService>();
         builder.Services.AddScoped<IItemService, ItemService>();
         builder.Services.AddScoped<IDbSeeder, DbSeeder>();
+        builder.Services.AddAutoMapper(typeof(MapperProfile));
 
         builder.Services.AddSwagger();
 
