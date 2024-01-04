@@ -26,7 +26,9 @@ public class Program
         builder.Services.AddSqlServerDatabase<AppDbContext>();
 
         builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
         builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<ICategoryService, CategoryService>();
         builder.Services.AddScoped<IDbSeeder, DbSeeder>();
 
         builder.Services.AddSwagger();
