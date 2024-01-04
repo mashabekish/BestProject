@@ -17,6 +17,7 @@ public class ItemRepository : IItemRepository
     {
         return await _db.Items
             .Where(i => i.Flag == Flags.Found && !i.IsResolved)
+            .Include(i => i.Category)
             .ToListAsync();
     }
 
@@ -40,6 +41,7 @@ public class ItemRepository : IItemRepository
     {
         return await _db.Items
             .Where(i => i.Flag == Flags.Lost && !i.IsResolved)
+            .Include(i => i.Category)
             .ToListAsync();
     }
 
@@ -64,6 +66,18 @@ public class ItemRepository : IItemRepository
         _db.Items.Add(newItem);
         await _db.SaveChangesAsync();
         return newItem;
+    }
+
+    public async Task<Item> CreateFoundItemAsync(Item newFoundItem)
+    {
+        ///TODO: validation
+        return await CreateItemAsync(newFoundItem);
+    }
+
+    public async Task<Item> CreateLostItemAsync(Item newLostItem)
+    {
+        ///TODO: validation
+        return await CreateItemAsync(newLostItem);
     }
 
     public async Task<IEnumerable<Item>> GetResolvedItemsAsync()
