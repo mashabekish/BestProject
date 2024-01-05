@@ -46,7 +46,7 @@ public class ItemService : IItemService
 
     public async Task<Item> CreateFoundItemAsync(Item newFoundItem)
     {
-        newFoundItem.Flag = Flags.Lost;
+        newFoundItem.Flag = Flags.Found;
         return await _itemRepository.CreateItemAsync(newFoundItem);
     }
 
@@ -80,5 +80,22 @@ public class ItemService : IItemService
     public async Task<Item?> GetItemById(int id)
     {
         return await _itemRepository.GetItemByIdAsync(id);
+    }
+
+    public async Task<IEnumerable<Notification>?> GetNotificationsByItemId(int id)
+    {
+        var item =  await _itemRepository.GetItemByIdAsync(id);
+        if (item == null)
+            throw new ArgumentNullException();
+        return item.Notifications;
+    }
+
+    public async Task<IEnumerable<Item>> GetMatchingItems(Item item)
+    {
+        var matchingItems = await _itemRepository.GetMatchingItemsAsync(item);
+        return matchingItems
+            .Where(i => ItemLocationHelpers.LocationIntersects(item.Location, i.Location))
+            .ToList();
+
     }
 }

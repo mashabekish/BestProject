@@ -5,6 +5,7 @@ using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Exceptions;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
@@ -24,6 +25,7 @@ namespace WebApp.Controllers
 
         private ItemDto MapItem(Item item) => _mapper.Map<ItemDto>(item);
         private IEnumerable<ItemDto> MapItems(IEnumerable<Item> items) => items.Select(i => _mapper.Map<ItemDto>(i));
+        private Item MapItemDto(ItemDto dto) => _mapper.Map<Item>(dto);
 
         [AllowAnonymous]
         [HttpGet("GetFound")]
@@ -72,17 +74,21 @@ namespace WebApp.Controllers
         }
 
         [HttpPost("CreateFound")]
-        public async Task<IActionResult> CreateFoundAsync(Item foundItem)
+        public async Task<IActionResult> CreateFoundAsync(ItemDto foundItem)
         {
-            var response = await _itemService.CreateFoundItemAsync(foundItem);
-            return Ok(MapItem(response));
+            var newItem = await _itemService.CreateFoundItemAsync(MapItemDto(foundItem));
+            var matchingItems = await _itemService.GetMatchingItems(newItem);
+            var dto = new CreateItemResponseDto(MapItem(newItem), MapItems(matchingItems));
+            return Ok(dto);
         }
 
         [HttpPost("CreateLost")]
-        public async Task<IActionResult> CreateLostAsync(Item lostItem)
+        public async Task<IActionResult> CreateLostAsync(ItemDto lostItem)
         {
-            var response = await _itemService.CreateLostItemAsync(lostItem);
-            return Ok(MapItem(response));
+            var newItem = await _itemService.CreateLostItemAsync(MapItemDto(lostItem));
+            var matchingItems = await _itemService.GetMatchingItems(newItem);
+            var dto = new CreateItemResponseDto(MapItem(newItem), MapItems(matchingItems));
+            return Ok(dto);
         }
 
         [HttpPut("Edit/{itemId:int}")]
@@ -101,14 +107,16 @@ namespace WebApp.Controllers
             return Ok(MapItems(response));
         }
 
-        [HttpPut("Locaton/GetLostItems")]
+        [Authorize]
+        [HttpPut("Location/GetLostItems")]
         public async Task<IActionResult> GetLostItemsByLocation(Location location)
         {
             var response = await _itemService.GetLostItemsByLocation(location);
             return Ok(MapItems(response));
         }
 
-        [HttpPut("Locaton/GetFoundItems")]
+        [Authorize]
+        [HttpPut("Location/GetFoundItems")]
         public async Task<IActionResult> GetFoundItemsByLocation(Location location)
         {
             var response = await _itemService.GetFoundItemsByLocation(location);

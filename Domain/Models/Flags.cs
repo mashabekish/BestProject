@@ -2,7 +2,7 @@
 {
     public enum Flags
     {
-        Lost,
-        Found
+        Lost = 0,
+        Found = 1
     }
 }

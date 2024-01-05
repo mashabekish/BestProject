@@ -7,5 +7,6 @@ namespace BusinessLayer.Abstractions
         Task<User> CreateUserAsync(User newUser);
 
         Task<User?> FindUserByEmailAsync(string email);
+        Task<IEnumerable<Notification>?> GetNotificationsByUserId(int id);
     }
 }

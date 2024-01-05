@@ -91,7 +91,20 @@ public class ItemRepository : IItemRepository
 
     public async Task<Item?> GetItemByIdAsync(int id)
     {
-        return await _db.Items.AsNoTracking()
+        return await _db.Items
+            .Include(i => i.Notifications)
             .FirstOrDefaultAsync(i => i.Id == id);
+    }
+
+    public async Task<IEnumerable<Item>> GetMatchingItemsAsync(Item item)
+    {
+        Flags flag;
+        if (item.Flag == Flags.Lost)
+            flag = Flags.Found;
+        else
+            flag = Flags.Lost;
+        return await _db.Items
+            .Where(i => i.CategoryId == item.CategoryId && !i.IsResolved && i.Flag == flag && item.UserId != i.UserId)
+            .ToListAsync();
     }
 }

@@ -16,7 +16,6 @@ namespace BusinessLayer.DTOs
         public Flags Flag { get; set; }
         public bool IsResolved { get; set; } = false;
         public Location Location { get; set; }
-        public int? ImageId { get; set; }
         public ImageDto? Image { get; set; }
         public List<Notification>? Notifications { get; set; }
 

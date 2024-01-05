@@ -19,6 +19,7 @@ namespace Domain.DataSeeder
             await SeedUsers();
             await SeedCategories();
             await SeedItems();
+            await SeedNotifications();
         }
         private async Task SeedUsers()
         {
@@ -186,6 +187,22 @@ namespace Domain.DataSeeder
 
             await _db.SaveChangesAsync();
         }
+
+        private async Task SeedNotifications()
+        {
+            if (_db.Notifications.Any())
+                return;
+            _db.Notifications.Add(
+                new Notification()
+                {
+                    ItemId = 2,
+                    UserId = 2,
+                    Subject = "New lost item added matching your found item Big silver key + chip",
+                    Message = "The following item matches your found item: link"}
+                );
+            await _db.SaveChangesAsync();
+        }
+
 
         private Location GetRandomLocation(float centerLatitude, float centerLongitude, int maxRadiusMeters, Random random)
         {

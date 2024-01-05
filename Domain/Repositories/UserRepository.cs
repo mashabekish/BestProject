@@ -26,5 +26,11 @@ namespace Domain.Repositories
             return _db.Users.AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Email.Equals(email));
         }
+
+        public Task<User?> FindUserByIdAsync(int id)
+        {
+            return _db.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
     }
 }

@@ -17,4 +17,6 @@ public interface IItemService
     Task<IEnumerable<Item>> GetLostItemsByLocation(Location location);
     Task<IEnumerable<Item>> GetFoundItemsByLocation(Location location);
     Task<Item?> GetItemById(int id);
+    Task<IEnumerable<Notification>?> GetNotificationsByItemId(int id);
+    Task<IEnumerable<Item>> GetMatchingItems(Item item);
 }
