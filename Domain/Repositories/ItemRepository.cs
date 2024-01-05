@@ -17,6 +17,7 @@ public class ItemRepository : IItemRepository
     {
         return await _db.Items.AsNoTracking()
             .Where(i => i.Flag == Flags.Found && !i.IsResolved)
+            .Include(i => i.Image)
             .ToListAsync();
     }
 
@@ -25,6 +26,7 @@ public class ItemRepository : IItemRepository
         return await _db.Items.AsNoTracking()
             .Where(i => i.Flag == Flags.Found && i.CategoryId == categoryId && !i.IsResolved)
             .Include(i => i.Category)
+            .Include(i => i.Image)
             .ToListAsync();
     }
 
@@ -33,6 +35,7 @@ public class ItemRepository : IItemRepository
         return await _db.Items.AsNoTracking()
             .Where(i => i.Flag == Flags.Found && i.UserId == userId && !i.IsResolved)
             .Include(i => i.User)
+            .Include(i => i.Image)
             .ToListAsync();
     }
 
@@ -40,6 +43,7 @@ public class ItemRepository : IItemRepository
     {
         return await _db.Items.AsNoTracking()
             .Where(i => i.Flag == Flags.Lost && !i.IsResolved)
+            .Include(i => i.Image)
             .ToListAsync();
     }
 
@@ -48,6 +52,7 @@ public class ItemRepository : IItemRepository
         return await _db.Items.AsNoTracking()
             .Where(i => i.Flag == Flags.Lost && i.Category.Id == categoryId && !i.IsResolved)
             .Include(i => i.Category)
+            .Include(i => i.Image)
             .ToListAsync();
     }
 
@@ -56,6 +61,7 @@ public class ItemRepository : IItemRepository
         return await _db.Items.AsNoTracking()
             .Where(i => i.Flag == Flags.Lost && i.UserId == userId && !i.IsResolved)
             .Include(i => i.User)
+            .Include(i => i.Image)
             .ToListAsync();
     }
 
@@ -78,6 +84,8 @@ public class ItemRepository : IItemRepository
         dbItem.CategoryId = editItem.CategoryId;
         dbItem.Flag = editItem.Flag;
         dbItem.IsResolved = editItem.IsResolved;
+        dbItem.Location = editItem.Location;
+        dbItem.ImageId = editItem.ImageId;
 
         await _db.SaveChangesAsync();
         return dbItem;
@@ -86,12 +94,15 @@ public class ItemRepository : IItemRepository
     public async Task<IEnumerable<Item>> GetResolvedItemsAsync()
     {
         return await _db.Items.AsNoTracking()
-            .Where(i => i.IsResolved).ToListAsync();
+            .Where(i => i.IsResolved)
+            .Include(i => i.Image)
+            .ToListAsync();
     }
 
     public async Task<Item?> GetItemByIdAsync(int id)
     {
         return await _db.Items
+            .Include(i => i.Image)
             .Include(i => i.Notifications)
             .FirstOrDefaultAsync(i => i.Id == id);
     }
@@ -105,6 +116,7 @@ public class ItemRepository : IItemRepository
             flag = Flags.Lost;
         return await _db.Items
             .Where(i => i.CategoryId == item.CategoryId && !i.IsResolved && i.Flag == flag && item.UserId != i.UserId)
+            .Include(i => i.Image)
             .ToListAsync();
     }
 }

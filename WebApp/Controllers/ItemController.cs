@@ -72,7 +72,7 @@ namespace WebApp.Controllers
             var response = await _itemService.GetLostItemsByUserAsync(userId);
             return Ok(MapItems(response));
         }
-
+        [AllowAnonymous]
         [HttpPost("CreateFound")]
         public async Task<IActionResult> CreateFoundAsync(ItemDto foundItem)
         {
