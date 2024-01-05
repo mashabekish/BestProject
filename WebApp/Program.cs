@@ -35,7 +35,14 @@ public class Program
 
         builder.Services.AddSwagger();
 
+        builder.Services.AddCors(policyBuilder =>
+            policyBuilder.AddDefaultPolicy(policy =>
+                policy.WithOrigins("*").AllowAnyHeader().AllowAnyHeader())
+        );
+
         var app = builder.Build();
+
+        app.UseCors();
 
         app.UseAuthentication();
         app.UseAuthorization();
